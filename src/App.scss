@@ -1,0 +1,42 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.app {
+  border: 5px solid black;
+  display: flex;
+  min-width: fit-content;
+  min-height: fit-content;
+  width: 80%;
+  margin: 50px auto;
+  column-gap: 1px;
+  .user-list,
+  .user-details {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid black;
+    padding: 10px 0px 25px 0px;
+    li {
+      padding-bottom: 5px;
+      font-size: 18px;
+      font-weight: 500;
+      &:hover {
+        cursor: pointer;
+        color: blue;
+      }
+    }
+    h2 {
+      text-decoration: underline;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+  }
+}
+
+.selected-user {
+  color: blue;
+}

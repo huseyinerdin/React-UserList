@@ -1,23 +1,18 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.scss";
+import React, { useState } from "react";
+import UserDetail from "./components/UserDetail";
+import UserList from "./components/UserList";
 
 function App() {
+  const [activeUserId, setActiveUserId] = useState(null);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <div className="user-list">
+        <UserList setActiveUserId={setActiveUserId} />
+      </div>
+      <div className="user-details">
+        {activeUserId && <UserDetail activeUserId={activeUserId} />}
+      </div>
     </div>
   );
 }
