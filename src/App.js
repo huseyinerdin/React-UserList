@@ -1,19 +1,20 @@
 import "./App.scss";
-import React, { useState } from "react";
 import UserDetail from "./components/UserDetail";
 import UserList from "./components/UserList";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Home from "./components/Home";
+import NavBar from "./components/NavBar";
 
 function App() {
-  const [activeUserId, setActiveUserId] = useState(null);
   return (
-    <div className="app">
-      <div className="user-list">
-        <UserList setActiveUserId={setActiveUserId} />
-      </div>
-      <div className="user-details">
-        {activeUserId && <UserDetail activeUserId={activeUserId} />}
-      </div>
-    </div>
+    <BrowserRouter>
+      <NavBar />
+      <Routes>
+        <Route index element={<Home />} />
+        <Route path="users" element={<UserList />} />
+        <Route path="users/:id" element={<UserDetail />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

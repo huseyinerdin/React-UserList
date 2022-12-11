@@ -1,39 +1,31 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
-const UserList = (props) => {
+const UserList = () => {
   const [users, setUsers] = useState([]);
-  const [loading, setLoading] = useState(true);
   useEffect(() => {
-    (async () => {
-      try {
-        const { data } = await axios(
-          "https://jsonplaceholder.typicode.com/users"
-        );
-        setUsers(data);
-        setLoading(false);
-      } catch (error) {
-        console.log("error", error);
-      }
-    })();
+    axios("https://jsonplaceholder.typicode.com/users")
+      .then((response) => setUsers(response.data))
+      .catch((error) => console.log("error", error));
   }, []);
 
   return (
-    <div>
+    <div className="user-list">
       <h2>User List</h2>
-      {loading && <div>Loading</div>}
-      <ul>
-        {users.map((user) => (
-          <li
-            key={user.id}
-            onClick={() => {
-              props.setActiveUserId(user.id);
-            }}
-          >
-            {user.name}
-          </li>
-        ))}
-      </ul>
+      {users.length ? (
+        <ul>
+          {users.map((user) => (
+            <li key={user.id}>
+              <Link to={`${user.id}`} className="link-style">
+                {user.name}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <div>Loading...</div>
+      )}
     </div>
   );
 };
