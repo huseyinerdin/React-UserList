@@ -1,23 +1,26 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 
 const UserDetail = () => {
   const { id } = useParams();
-  const [user, setUser] = useState(null);
+  const location = useLocation();
+  const [user, setUser] = useState(location.state);
   useEffect(() => {
-    fetch(`https://jsonplaceholder.typicode.com/users/${id}`)
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          throw new Error("Some problems occurred while fetching the data.");
-        }
-      })
-      .then((data) => setUser(data))
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [id]);
+    if (!user?.id) {
+      fetch(`https://jsonplaceholder.typicode.com/users/${id}`)
+        .then((response) => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            throw new Error("Some problems occurred while fetching the data.");
+          }
+        })
+        .then((data) => setUser(data))
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, [id, user]);
   return (
     <div className="user-detail">
       <h2>User Detail</h2>
